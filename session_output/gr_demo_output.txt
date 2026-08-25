@@ -1,0 +1,60 @@
+    Finished release [optimized] target(s) in 0.06s
+     Running `target/release/gr_demo`
+================================================================
+ Continuum GR: tensor calculus engine, exact solutions, geodesics
+================================================================
+
+---- Step 1: Minkowski (flat) -- every curvature tensor should vanish ----
+
+max |R^a_bcd| = 0.000e0, Ricci scalar = 0.000e0, Kretschmann = 0.000e0 (all expect ~0)
+
+---- Step 2: Schwarzschild -- vacuum check (R_ab=0) + Kretschmann scalar ----
+
+   r/r_s      max|R_ab|        K numeric K exact 12rs^2/r^6    rel err
+     3.0       1.426e-8      1.646091e-2      1.646091e-2     0.000%
+     5.0       1.328e-8      7.680000e-4      7.680000e-4     0.000%
+    10.0       6.755e-8      1.200001e-5      1.200000e-5     0.000%
+    25.0       7.559e-7      4.915201e-8      4.915200e-8     0.000%
+    50.0       4.799e-6     7.679359e-10     7.680000e-10     0.008%
+
+---- Step 3: FRW (matter-dominated, a(t)=t^(2/3)) -- Ricci scalar vs closed form ----
+
+     t      R numeric        R exact    rel err
+   1.0       1.333334       1.333333     0.000%
+   2.5       0.213334       0.213333     0.000%
+   5.0       0.053333       0.053333     0.000%
+  10.0       0.013333       0.013333     0.000%
+
+(Homogeneity check: evaluating at three different (chi,theta,phi) points
+at t=5.0 should give the same Ricci scalar -- a structural consequence of
+FRW symmetry, independent of the closed-form comparison above.)
+  chi=0.2 theta=0.5 phi=0.1 -> R = 0.053335
+  chi=0.6 theta=1.2 phi=2.0 -> R = 0.053333
+  chi=0.9 theta=2.4 phi=-1.0 -> R = 0.053333
+
+---- Step 4: geodesic integration -- norm & Killing-charge conservation ----
+
+initial: norm=-1.000000 (expect -1, timelike), E=1.050000, L=0.600000
+  step          r         norm            E            L
+     0     8.0000  -1.00000000   1.05000000   0.60000000
+   500     9.1588  -1.00000000   1.05000000   0.60000000
+  1000    10.2824  -1.00000000   1.05000000   0.60000000
+  1500    11.3781  -1.00000000   1.05000000   0.60000000
+  2000    12.4509  -1.00000000   1.05000000   0.60000000
+  2500    13.5045  -1.00000000   1.05000000   0.60000000
+  3000    14.5418  -1.00000000   1.05000000   0.60000000
+
+---- Step 5: light bending -- full null-geodesic integration vs weak-field formula ----
+
+  r0/r_s      b/r_s     deflection predicted 2rs/b    rel err
+     200       50.0       0.040986       0.040000      2.47%
+     500       50.0       0.041123       0.040000      2.81%
+    1000       50.0       0.041173       0.040000      2.93%
+
+(Deflection is computed as the total swept angle minus the *finite-r0*
+flat-space baseline pi - 2*asin(b/r0), not bare pi -- see README for the
+bug this distinction fixed. Stable across three different r0 choices.)
+
+================================================================
+ Done -- all numbers above computed live by this run, not cached.
+================================================================

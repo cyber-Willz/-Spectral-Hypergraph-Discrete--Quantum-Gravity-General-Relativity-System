@@ -1,0 +1,16 @@
+N=120 vertices, d=4 -> B is 480x480. Running 1000 seeds...
+B ensemble: 1000 converged, 0 failed to converge, 180241 pooled spacings, wall time 137.854970855s
+Ginibre reference: 72087 pooled spacings, wall time 75.796826304s
+Poisson reference: 72000 pooled spacings, wall time 1.862040246s
+
+=== Results ===
+fraction of unfolded spacings < 0.3 (small-spacing / repulsion proxy):
+  B (non-backtracking):  0.5232
+  Ginibre reference:     0.0578
+  Poisson reference:     0.2201
+
+KS distance, B vs Ginibre reference:   0.6089
+KS distance, B vs Poisson reference:    0.3968
+KS distance, Ginibre vs Poisson (sanity, should be large): 0.2136
+
+=> B's bulk spacing distribution sits closer to Poisson than Ginibre at this N -- report this as the actual finding, not the expected one.
